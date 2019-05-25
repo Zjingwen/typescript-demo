@@ -1,0 +1,24 @@
+{
+  "name": "typescript-demo",
+  "version": "1.0.0",
+  "description": "测试typescript例子的项目",
+  "author": "静文（jingwen）",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run watch\"",
+    "server": "live-server ./src --port=8080",
+    "ts": "tsc",
+    "watch": "node ./config/watch.js"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "chokidar": "^3.0.0",
+    "concurrently": "^4.1.0",
+    "glob": "^7.1.4",
+    "live-server": "^1.2.1",
+    "shelljs": "^0.8.3"
+  },
+  "engines": {
+    "node": ">=8.9.1",
+    "npm": ">=6.1.0"
+  }
+}
