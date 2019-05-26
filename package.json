@@ -13,7 +13,6 @@
   "devDependencies": {
     "chokidar": "^3.0.0",
     "concurrently": "^4.1.0",
-    "glob": "^7.1.4",
     "live-server": "^1.2.1",
     "shelljs": "^0.8.3"
   },

@@ -56,7 +56,6 @@ typescript-demo
 
 - chokidar 监听文件变化
 - concurrently 同时执行多个命令
-- glob 查找文件
 - live-server 简易服务器
 - shelljs 执行shell命令
 
@@ -64,17 +63,11 @@ typescript-demo
 
 ```JS
 // watch.js 文件
-const glob = require('glob');
 const shell = require('shelljs');
 const chokidar = require('chokidar');
 
-const options = {
-  cwd: './ts',
-};
-// 获取ts目录，组合./ts/路径
-const files = glob.sync('*.ts', options).map(v=> `./ts/${v}`);
 // 监听文件
-const watcher = chokidar.watch(files,{
+const watcher = chokidar.watch('./ts',{
   persistent: true,
 });
 // 执行命令
