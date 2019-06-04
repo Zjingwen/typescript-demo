@@ -10,7 +10,6 @@ let myObj1 = {
     size: 10,
     label: 'aaa',
 };
-printLabel1(myObj1);
 ;
 function printLabel2(labelledObj) {
     console.log(labelledObj.label);
@@ -19,7 +18,6 @@ let myObj2 = {
     size: 10,
     label: 'aaaa',
 };
-printLabel2(myObj2);
 function createSquare3(config) {
     let newSquare = {
         color: 'while',
@@ -62,9 +60,57 @@ mySearch = function (sourec, subString) {
 let myArray;
 myArray = ['1', '2'];
 let myStr = myArray[0];
-class Clock {
-    setTime(d) {
-        this.currentTime = d;
-    }
-    constructor(h, m) { }
+class Animal {
 }
+class Dog extends Animal {
+}
+function createClock(ctor, hour, minute) {
+    return new ctor(hour, minute);
+}
+class DigtalClock {
+    constructor(h, m) { }
+    tick() {
+        console.log("beep beep");
+    }
+}
+class AnglogClock {
+    constructor(h, m) { }
+    tick() {
+        console.log('tick tock');
+    }
+}
+let digital = createClock(DigtalClock, 12, 17);
+let analog = createClock(AnglogClock, 7, 32);
+let square = {};
+square.color = 'blue';
+square.sideLength = 10;
+square.penWidth = 5.0;
+function getCounter() {
+    let counter = function (start) { };
+    counter.interval = 123;
+    counter.reset = function () { };
+    return counter;
+}
+;
+let c = getCounter();
+c(10);
+c.reset();
+c.interval = 5.0;
+/**
+ * 接口继承类
+ * 创建了一个接口继承了一个拥有私有或受保护的成员的类时，这个接口类型只能被这个类或其子类所实现
+ * 只有子类才能访问父类的私有属性
+ */
+class Control {
+}
+class Button extends Control {
+    select() { }
+}
+class TextBox extends Control {
+    select() { }
+}
+// class Image implements SelecttableControl {
+//   select() {}
+// }
+// class Location {
+// }

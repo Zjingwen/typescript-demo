@@ -9,7 +9,7 @@ let myObj1= {
   size: 10,
   label: 'aaa',
 }
-printLabel1(myObj1);
+// printLabel1(myObj1);
 
 /**
  * interface关键字
@@ -25,7 +25,7 @@ let myObj2 = {
   size: 10,
   label: 'aaaa',
 };
-printLabel2(myObj2);
+// printLabel2(myObj2);
 
 /**
  * 可选属性
@@ -113,18 +113,151 @@ let myArray: StringArray;
 myArray = ['1','2'];
 let myStr:string = myArray[0];
 
+class Animal{
+  name!: string;
+}
+
+class Dog extends Animal {
+  breed!: string;
+}
+
+// 错误：使用数值型索引
+// interface NotOkay {
+//   [x: number]: Animal;
+//   [x: string]: Dog;
+// }
+
+interface NumberDictionary{
+  [index: string]: number;
+  length: number;
+  name: any;
+}
+
 /**
  * 类类型
  */
+// interface ClockInterface {
+//   currentTime: Date;
+//   setTime(d: Date):any;
+// }
+
+// class Clock implements ClockInterface {
+//   constructor(h: number, m: number) { };
+//   currentTime!: Date;
+//   setTime(d:Date){
+//     this.currentTime = d;
+//   }
+// }
+
+/**
+ * 调用签名
+ * 只有参数列表和返回值类型的函数定义。
+ * 参数列表里的每个参数都需要名字和类型。
+ */
+
+ /**
+  * 类有两个类型，静态类型和实例类型
+  * ！试图用构造器签名去定义一个接口并试图定义一个类去实现这个接口时会的到一个错误
+  */
+
+interface ClockConstructor{
+  new (hour: number, minute: number): ClockInterface;
+}
 interface ClockInterface {
-  currentTime: Date;
-  setTime(d: Date);
+  tick():any;
 }
 
-class Clock implements ClockInterface {
-  currentTime: Date;
-  setTime(d:Date){
-    this.currentTime = d;
-  }
-  constructor(h: number, m: number) { }
+function createClock(ctor: ClockConstructor, hour: number, minute: number): ClockInterface {
+  return new ctor(hour, minute);
 }
+
+class DigtalClock implements ClockInterface {
+  constructor (h: number,m: number){}
+  tick(){
+    console.log("beep beep");
+  }
+}
+
+class AnglogClock implements ClockInterface {
+  constructor(h: number, m: number){}
+  tick() {
+    console.log('tick tock');
+  }
+}
+
+let digital = createClock(DigtalClock, 12, 17);
+let analog = createClock(AnglogClock, 7, 32);
+// digital.tick();
+// analog.tick();
+
+/**
+ * 接口继承
+ */
+interface Shape {
+  color: string;
+}
+interface PenStroke {
+  penWidth: number;
+}
+interface Square extends Shape,PenStroke{
+  sideLength: number;
+}
+
+let square = <Square>{};
+square.color = 'blue';
+square.sideLength = 10;
+square.penWidth = 5.0;
+// console.log(square);
+
+/**
+ * 混合类型
+ * 接口能够描述javascript里丰富的类型，可以让一个对象同时具备多种类型
+ * 使用第三方库时，可能需要这样去完整定义类型
+ */
+interface Counter {
+  (start: number): string;
+  interval: number;
+  reset(): void;
+}
+
+function getCounter(): Counter{
+  let counter = <Counter>function (start: number){};
+  counter.interval = 123;
+  counter.reset = function(){};
+  return counter;
+};
+
+let c = getCounter();
+c(10);
+c.reset();
+c.interval = 5.0;
+
+/**
+ * 接口继承类
+ * 创建了一个接口继承了一个拥有私有或受保护的成员的类时，这个接口类型只能被这个类或其子类所实现
+ * 只有子类才能访问父类的私有属性
+ */
+
+class Control {
+  private static: any;
+}
+
+interface SelecttableControl extends Control {
+  select(): void;
+}
+
+class Button extends Control implements SelecttableControl {
+  select() {}
+}
+
+class TextBox extends Control {
+  select() {}
+}
+
+// class Image implements SelecttableControl {
+//   select() {}
+// }
+
+// class Location {
+
+// }
