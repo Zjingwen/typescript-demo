@@ -2,177 +2,190 @@
  * 类
  */
 
-class Greeter{
-  greeting: string;
-  constructor(message: string){
-    this.greeting = message;
-  };
-  greet(){
-    return 'Hello, '+ this.greeting;
-  }
-}
+// 基础类用法
+// class Animals{
+//   name:string = '';
+// 	constructor(name:string){
+//     this.name = name;
+//   }
+// 	sayHi(){
+// 		console.log(`my is ${this.name}`);
+//     return `my is ${this.name}`;
+//   }
+// }
 
-let greeter = new Greeter("world");
-// greeter.greet();
+// class Cat extends Animals{
+//  	constructor(name:string){
+//     super(name);
+//   }
+  
+//   sayHi(){
+//     console.log(`new ${super.sayHi()}`)
+//     return `new ${super.sayHi()}`;
+//   }
+// }
 
-/**
- * Dog1是一个派生类，它派生自Animal基类，通过extends关键字实现继承
- * supre 会执行基类的构造函数
- */
-class Animal1 {
-  move(distanceInMeters: number = 0){
-    console.log(`Animal moved ${distanceInMeters}m.`);
-  }
-}
+// let aaaa = new Animals("aaa");
+// let cccc = new Cat('Cat');
+// aaaa.sayHi();
+// cccc.sayHi();
 
-class Dog1 extends Animal1 {
-  bark() {
-    console.log('Woof! Woof!');
-  }
-}
+// 存取器用法
+// class Animal2{
+//   constructor(name:string){
+//     this.name = name;
+//   }
+  
+//   get name(){
+//     return new Date().toString();
+//   }
+  
+//   set name(val){
+//     console.log(`setter: ${val}`)
+//   }
+// }
 
-const dog = new Dog1();
-// dog.bark();
-// dog.move(10);
-// dog.bark();
+// let aaaa = new Animal2('1111');
+// console.log(aaaa.name);
 
-class Animal2 {
-  name: string;
-  constructor(thenName: string){
-    this.name = thenName;
-  };
-  move(distanceInMeters: number = 0){
-    console.log(`${this.name} moved ${distanceInMeters}m.`);
-  };
-}
+// 静态方法
+// class Animal{
+//   name:any;
+//   constructor(name:string){
+//     this.name = name;
+//   }
+//   static isAnimal(a:any){
+//     console.log(a instanceof Animal)
+//     return a instanceof Animal;
+//   }
+// };
 
-class Snake extends Animal2 {
-  constructor(name:string) {
-    super(name);
-  }
+// let a = new Animal('Jack');
+// Animal.isAnimal(a);
+// a.isAnimal(); // error isAnimal is a static ...
 
-  move(distanceInMeters = 5){
-    console.log("Slithering...");
-    super.move(distanceInMeters);
-  }
-}
+// public
+// class Animal{
+//   public name:string;
+//   public constructor(name:string) {
+//     this.name=name;
+//   }
+// }
 
-class Horse extends Animal2{
-  constructor(name: string){
-    super(name);
-  }
+// let a = new Animal('1111');
+// console.log(a.name);
+// a.name = '2222';
 
-  move(distanceInMeters = 45){
-    console.log("Galloping...");
-    super.move(distanceInMeters);
-  }
-}
+// private
+// class Animal{
+//   private name: string;
+//   public constructor(name:string){
+//     this.name = name;
+//   };
+// };
 
-let sam = new Snake("Sammy the Python");
-let tom:Animal1 = new Horse("Tommy the Palomino");
+// let a = new Animal('1111');
+// console.log(a.name);
+// a.name = '2222';
 
-// sam.move();
-// tom.move(34);
+// private
+// class Animal{
+//   private name: string;
+//   constructor(name:string){
+//     this.name = name;
+//   }
+// }
 
-/**
- * 公有、私有、受保护
- */
-class Animal3 { // 公有
-  public name: string;
-  public constructor(theName: string){
-    this.name = theName;
-  }
-  public move(distanceInMeters: number){
-    console.log(`${this.name} moved ${distanceInMeters}`);
-  }
-}
+// class Cat extends Animal{
+//   constructor(name:string){
+//     super(name);
+//     console.log(this.name);
+//   }
+// }
 
-class Animal4 { // 私有，外部访问报错
-  private name: string;
-  constructor(thenName: string){
-    this.name = thenName;
-  }
-}
-// new Animal4("Cat").name;
+// proteceted
+// class Animal{
+//   protected name:string;
+//   constructor(name:string){
+//     this.name = name;
+//   }
+// }
 
-class Animal5 {
-  private name: string;
-  constructor(theName: string){
-    this.name = theName;
-  }
-}
+// class Cat extends Animal{
+//   constructor(name:string){
+//     super(name);
+//     console.log(this.name);
+//   }
+// }
 
-class Rhino extends Animal5{
-  constructor(){
-    super("Rhino");
-  }
-}
+// abstract 
+// abstract class Animal{
+//   public name:string = '';
+//   public constructor(name:string){
+//     this.name = name;
+//   }
+//   public sayHi(){
+//     console.log(this.name);
+//   }
+// }
 
-class Employee {
-  private name: string;
-  constructor(theName:string) {
-    this.name = theName;
-  }
-}
+// class Cat extends Animal{
+//   public eat(){
+//     console.log(`${this.name} is eating`)
+//   }
+// }
 
-let animal5 = new Animal5("Goat");
-let rhino = new Rhino();
-let employee = new Employee("Bob");
+// let a = new Cat('11111');
+// a.eat();
 
-animal5 = rhino;
-// animal5 = employee;
+// readonly
+// class Octopus{
+//   readonly name: string;
+//   readonly numberOfLegs: number = 8;
+//   constructor(theName:string){
+//     this.name = theName;
+//   }
+// }
 
-/**
- * protected 不能在实例化使用，但是可以在派生类中使用
- */
-class Person{
-  protected name: string;
-  constructor(name: string) {
-    this.name = name;
-  }
-}
+// let dad = new Octopus('111');
+// dad.name = '111'; // error
 
-class Employee1 extends Person {
-  private department: string;
-  constructor(name:string,department:string) {
-    super(name);
-    this.department = department;
-  }
+// class Alpha{
+//   x: number;
+// }
+// class Bravo{
+//   x: number;
+// }
+// class Charlie{
+//   private x: number;
+// }
+// class Delta extends Charlie {
+// }
+// class Eat extends Charlie {
+  
+// }
 
-  public getElevatorPitch(){
-    return `Hello, my name is ${this.name} and I work in ${this.department}.`
-  }
-}
+// let a = new Alpha(),
+//     b = new Bravo(),
+//     c = new Charlie(),
+//     d = new Delta(),
+//     e = new Eat();
 
-let howard = new Employee1("Howard","Sales");
-console.log(howard.getElevatorPitch());
-// console.log(howard.name);
+// a = b;
+// c = d;
+// c = e;
+// e = d;
 
-/**
- * 构造函数被标记为 protected
- */
-class Person1{
-  protected name: string;
-  protected constructor(theName: string) {
-    this.name = theName;
-  }
-}
+// class MyClass {
+//   x = 10;
+//   someCallBack(){
+//     console.log(this.x);
+//     this.someMethod();
+//   }
+//   someMethod(){
+//     console.log('someMethod');
+//   }
+// }
 
-class Employee2 extends Person1{
-  private department: string;
-  constructor(name:string,department:string) {
-    super(name);
-    this.department = department;
-  }
-
-  public getElevatorPitch() {
-    return `Hello, my name is ${this.name} and I work in ${this.department}.`;
-  }
-}
-
-let howard1 = new Employee2("Howard","Sales");
-// let john = new Person1("John");
-
-/**
- * 修饰符
- */
+// let obj = new MyClass();
+// setTimeout(obj.someCallBack(),1000);
