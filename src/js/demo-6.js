@@ -1,84 +1,120 @@
 "use strict";
-// 枚举类型
 /**
- * 当你设置了up为1，那么接下来所有枚举类型都会自增
+ * 枚举
+ * 定义一些带名字的常量。清晰的表达意图或创建一组有区别的用例
  */
-var Direction;
-(function (Direction) {
-    Direction[Direction["Up"] = 1] = "Up";
-    Direction[Direction["Down"] = 2] = "Down";
-    Direction[Direction["Left"] = 3] = "Left";
-    Direction[Direction["Right"] = 4] = "Right";
-})(Direction || (Direction = {}));
+// 如何定义枚举
+// enum 枚举名{
+//   枚举成员 = 初始化器(可缺省)
+// }
 /**
- * 使用枚举类型
- * 未初始化器的枚举不能放置在第一位
+ * 数字枚举
  */
-var ResponseEnum;
-(function (ResponseEnum) {
-    ResponseEnum[ResponseEnum["No"] = 0] = "No";
-    ResponseEnum[ResponseEnum["Yes"] = 1] = "Yes";
-})(ResponseEnum || (ResponseEnum = {}));
-function respond(recipient, message) {
-    console.log(recipient);
-    console.log(message);
-}
-// respond("Princess Caroline", ResponseEnum.No);
+// 当枚举成员第一项的初始值为1，其余成员会从1开始自增
+// enum Direction{
+//   Up=1,
+//   Down,
+//   Left,
+//   Right
+// }
+// console.log(Direction.Up);    // 1
+// console.log(Direction.Down);  // 2
+// console.log(Direction.Left);  // 3
+// console.log(Direction.Right); // 4
+// 当枚举成员第一项的未初始化时，第一项默认为0，其余成员从0开始自增
+// enum Direction{
+//   Up,
+//   Down,
+//   Left,
+//   Right
+// }
+// console.log(Direction.Up);    // 0
+// console.log(Direction.Down);  // 1
+// console.log(Direction.Left);  // 2
+// console.log(Direction.Right); // 3
+// 枚举的使用，用枚举名.成员名，枚举名['成员名']，用枚举名来作为类型
+// enum Responses {
+//   No = 0,
+//   Yes = 1,
+// }
+// function respond(recipient: string, message: Responses): void {
+//   console.log(recipient);
+//   console.log(message);
+// }
+// respond("hello", Responses.Yes);
+// respond("hello", Responses['Yes']);
+// 枚举成员第一项是由函数or常量初始化，其余成员未初始化时，会报异常
+// 处理方案：初始化其余成员，将第一项移动至其他项
+// function getSomeValue():number{
+//   return 1;
+// };
+// const I= 1;
+// enum E1{
+//   A = getSomeValue(),
+//   B,
+// }
+// enum E2{
+//   A = getSomeValue(),
+//   B = 1,
+// }
+// enum E3{
+//   A = I,
+//   B,
+// }
+// enum E4{
+//   B,
+//   A = I,
+// }
 /**
  * 字符串枚举
- * 没有自增行为
+ * 每个成员都必须是字符串字面量
+ * 用另一个字符串枚举成员来初始化
  */
-var Direction2;
-(function (Direction2) {
-    Direction2["Up"] = "UP";
-    Direction2["Dowm"] = "DOWN";
-    Direction2["Left"] = "LEFT";
-    Direction2["Right"] = "RIGHT";
-})(Direction2 || (Direction2 = {}));
+// enum Direction{
+//   Up = "UP",
+//   Down = "DOWN",
+//   Left = "LEFT",
+//   Right = "RIGHT",
+// }
 /**
- * 异构枚举
- * 枚举可以混合字符串和数字类型
+ * 异构字符串
+ * 混合字符串和数字成员
  */
-var BooleanLikeHeterogeneousEnum;
-(function (BooleanLikeHeterogeneousEnum) {
-    BooleanLikeHeterogeneousEnum[BooleanLikeHeterogeneousEnum["No"] = 0] = "No";
-    BooleanLikeHeterogeneousEnum["Yes"] = "YES";
-})(BooleanLikeHeterogeneousEnum || (BooleanLikeHeterogeneousEnum = {}));
+// enum enums {
+//   No = 0,
+//   Yes = "YES",
+// }
 /**
- * 计算的常量成员
+ * 计算和常量成员
  */
-// 枚举的第一个成员，没有初始化器，它的值为0
-var E;
-(function (E) {
-    E[E["x"] = 0] = "x";
-})(E || (E = {}));
-// console.log(E.x)
-//枚举成员的第一项为数字0，那么接下来的成员将会自增
-var E1;
-(function (E1) {
-    E1[E1["A"] = 1] = "A";
-    E1[E1["B"] = 2] = "B";
-    E1[E1["C"] = 3] = "C";
-})(E1 || (E1 = {}));
-// console.log(E1.A);
-// console.log(E1.B);
-// console.log(E1.C);
+// 常量成员，由常量初始化赋值或没有赋值枚举
+// enum E {
+//   X
+// }
+// enum E1{
+//   X,
+//   Y,
+//   Z,
+// }
+// enum E2{
+//   A = 1,
+//   B,
+//   C,
+// }
+// 计算成员，由运算符、函数等初始化赋值
+// enum J{
+//   A = 1<<1,
+//   B = 1+1,
+//   C = 0 || 1,
+// }
 /**
- * 枚举成员可以是其他成员计算而来
+ * 反向映射
+ * 数字枚举成员，拥有从枚举值反推枚举名的方式
  */
-var FileAccess;
-(function (FileAccess) {
-    FileAccess[FileAccess["None"] = 0] = "None";
-    FileAccess[FileAccess["Read"] = 2] = "Read";
-    FileAccess[FileAccess["Write"] = 4] = "Write";
-    FileAccess[FileAccess["ReadWrite"] = 6] = "ReadWrite";
-    FileAccess[FileAccess["G"] = "123".length] = "G";
-})(FileAccess || (FileAccess = {}));
-;
-let directions = [
-    0 /* Up */,
-    1 /* Down */,
-    2 /* Left */,
-    3 /* Right */
-];
-console.log(directions);
+// enum Enum{
+//   A
+// };
+// let a = Enum.A;
+// let nameOfA = Enum[a];
+// console.log(a);
+// console.log(nameOfA);
