@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
+    "target": "es5",
     "module": "commonjs",
     "sourceMap": false,
+    "noImplicitAny": false,
     "strict": true,               
     "esModuleInterop": true,
     "outDir": "src/js/"
